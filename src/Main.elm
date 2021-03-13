@@ -94,19 +94,19 @@ view model =
     E.layout
         [ Background.color champagne
         , Font.color black
-        , E.behindContent <|
-            E.el
-                [ E.width E.fill
-                , E.height E.fill
-                , Events.onClick (ExpandCard Nothing)
-                ]
-                E.none
         ]
         (E.column
             [ E.width E.fill
             , E.height E.fill
             , E.paddingXY 0 60
-            , E.spacing 60
+            , E.spacing 40
+            , E.behindContent <|
+                E.el
+                    [ E.width E.fill
+                    , E.height E.fill
+                    , Events.onClick (ExpandCard Nothing)
+                    ]
+                    E.none
             ]
             [ E.row
                 [ E.width E.fill
@@ -120,16 +120,9 @@ view model =
                     ]
                     (E.text pageTitle)
                 ]
-            , E.row
-                [ E.width E.fill
-                , E.alignTop
-                , E.spacing 30
-                , E.paddingXY 30 0
-                ]
-                [ viewCard Ingredients model
-                , viewCard Mixing model
-                , viewCard Baking model
-                ]
+            , E.row [ E.centerX ] [ viewCard Ingredients model ]
+            , E.row [ E.centerX ] [ viewCard Mixing model ]
+            , E.row [ E.centerX ] [ viewCard Baking model ]
             , E.row
                 [ E.alignBottom
                 , E.centerX
@@ -180,7 +173,7 @@ viewCard card model =
             ]
     in
     if model.expandedCard == Just card then
-        E.el (E.width (E.maximum 640 E.fill) :: attrs)
+        E.el (E.width (E.px 640) :: attrs)
             (E.column [ E.spacing 20 ]
                 [ E.row [ Font.bold ] [ E.text (cardToString card) ]
                 , case card of
