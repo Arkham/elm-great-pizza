@@ -116,7 +116,7 @@ view model =
                 [ E.el
                     [ E.padding 30
                     , E.centerX
-                    , Font.size 37
+                    , Font.size 44
                     ]
                     (E.text pageTitle)
                 ]
@@ -173,7 +173,7 @@ viewCard card model =
             ]
     in
     if model.expandedCard == Just card then
-        E.el (E.width (E.px 640) :: attrs)
+        E.el (E.width (E.px 800) :: attrs)
             (E.column [ E.spacing 20 ]
                 [ E.row [ Font.bold ] [ E.text (cardToString card) ]
                 , case card of
@@ -250,9 +250,9 @@ sauceIngredients =
 
 viewIngredients : Model -> Element Msg
 viewIngredients model =
-    E.column [ E.spacing 15 ]
+    E.column [ E.spacing 20 ]
         [ E.el [ Font.italic ] (E.text "Dough for 2 pizzas")
-        , E.column [ E.spacing 10 ]
+        , E.column [ E.spacing 15 ]
             (List.map
                 (\(( unit, name ) as ingredient) ->
                     Input.checkbox []
@@ -265,7 +265,7 @@ viewIngredients model =
                 doughIngredients
             )
         , E.el [ Font.italic ] (E.text "Sauce")
-        , E.column [ E.spacing 10 ]
+        , E.column [ E.spacing 15 ]
             (List.map
                 (\(( unit, name ) as ingredient) ->
                     Input.checkbox []
@@ -283,7 +283,7 @@ viewIngredients model =
 ingredientLabel : ( Unit, String ) -> Element msg
 ingredientLabel ( unit, name ) =
     E.row
-        [ Font.size 18, E.spacing 5 ]
+        [ Font.size 20, E.spacing 5 ]
         [ E.el [ Font.semiBold ] (E.text name)
         , E.text (unitToString unit)
         ]
@@ -327,7 +327,7 @@ viewMixing model =
                     , checked = Set.member step model.mixingSteps
                     , label =
                         Input.labelRight [ E.paddingXY 5 0, E.width E.fill ]
-                            (E.paragraph [ Font.size 16 ] [ E.text step ])
+                            (E.paragraph [ Font.size 20 ] [ E.text step ])
                     }
             )
             mixingInstructions
@@ -344,7 +344,7 @@ viewBaking model =
                     , checked = Set.member step model.bakingSteps
                     , label =
                         Input.labelRight [ E.paddingXY 5 0, E.width E.fill ]
-                            (E.paragraph [ Font.size 16 ] [ E.text step ])
+                            (E.paragraph [ Font.size 20 ] [ E.text step ])
                     }
             )
             bakingInstructions
