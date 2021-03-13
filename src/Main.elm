@@ -5,6 +5,7 @@ import Element as E exposing (Color, Element)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
+import Element.Input as Input
 import Html exposing (Html)
 import Html.Attributes
 
@@ -15,7 +16,7 @@ type alias Model =
 
 pageTitle : String
 pageTitle =
-    "How To Make Great Pizza At Home"
+    "How to Make Great Pizza at Home"
 
 
 main : Program () Model Msg
@@ -85,8 +86,7 @@ view model =
                 [ E.el
                     [ E.padding 30
                     , E.centerX
-                    , Font.size 34
-                    , Font.bold
+                    , Font.size 37
                     ]
                     (E.text pageTitle)
                 ]
@@ -98,7 +98,7 @@ view model =
                 ]
               <|
                 [ card [ Background.color yellow ] "Ingredients"
-                , card [ Background.color pumpkin ] "Kneading & Folding"
+                , card [ Background.color pumpkin ] "Mixing & Kneading"
                 , card [ Background.color orange ] "Baking"
                 ]
             ]
@@ -106,7 +106,7 @@ view model =
 
 card : List (E.Attribute Msg) -> String -> Element Msg
 card attrs title =
-    E.el
+    Input.button
         ([ Background.color (E.rgb255 230 20 240)
          , E.padding 30
          , E.pointer
@@ -114,7 +114,9 @@ card attrs title =
          ]
             ++ attrs
         )
-        (E.text title)
+        { onPress = Nothing
+        , label = E.text title
+        }
 
 
 type Msg
