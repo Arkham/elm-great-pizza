@@ -94,6 +94,7 @@ view model =
     E.layout
         [ Background.color champagne
         , Font.color black
+        , baseFont
         ]
         (E.column
             [ E.width E.fill
@@ -116,7 +117,7 @@ view model =
                 [ E.el
                     [ E.padding 30
                     , E.centerX
-                    , Font.size 44
+                    , bigFont
                     ]
                     (E.text pageTitle)
                 ]
@@ -126,7 +127,7 @@ view model =
             , E.row
                 [ E.alignBottom
                 , E.centerX
-                , Font.size 16
+                , smallFont
                 ]
                 [ E.text "Made with ❤️ and 🍕 by "
                 , E.link [ Font.underline ]
@@ -134,6 +135,26 @@ view model =
                 ]
             ]
         )
+
+
+baseFontSize : Float
+baseFontSize =
+    20
+
+
+baseFont : E.Attr decorative msg
+baseFont =
+    Font.size (round baseFontSize)
+
+
+smallFont : E.Attr decorative msg
+smallFont =
+    Font.size (round (baseFontSize * 0.8))
+
+
+bigFont : E.Attr decorative msg
+bigFont =
+    Font.size (round (baseFontSize * 2))
 
 
 cardToString : Card -> String
@@ -283,7 +304,7 @@ viewIngredients model =
 ingredientLabel : ( Unit, String ) -> Element msg
 ingredientLabel ( unit, name ) =
     E.row
-        [ Font.size 20, E.spacing 5 ]
+        [ E.spacing 5 ]
         [ E.el [ Font.semiBold ] (E.text name)
         , E.text (unitToString unit)
         ]
@@ -327,7 +348,7 @@ viewMixing model =
                     , checked = Set.member step model.mixingSteps
                     , label =
                         Input.labelRight [ E.paddingXY 5 0, E.width E.fill ]
-                            (E.paragraph [ Font.size 20 ] [ E.text step ])
+                            (E.paragraph [] [ E.text step ])
                     }
             )
             mixingInstructions
@@ -344,7 +365,7 @@ viewBaking model =
                     , checked = Set.member step model.bakingSteps
                     , label =
                         Input.labelRight [ E.paddingXY 5 0, E.width E.fill ]
-                            (E.paragraph [ Font.size 20 ] [ E.text step ])
+                            (E.paragraph [] [ E.text step ])
                     }
             )
             bakingInstructions
