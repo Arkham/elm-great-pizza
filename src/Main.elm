@@ -139,7 +139,7 @@ view model =
 
 baseFontSize : Float
 baseFontSize =
-    20
+    24
 
 
 baseFont : E.Attr decorative msg
@@ -152,9 +152,14 @@ smallFont =
     Font.size (round (baseFontSize * 0.8))
 
 
+titleFont : E.Attr decorative msg
+titleFont =
+    Font.size (round (baseFontSize * 1.2))
+
+
 bigFont : E.Attr decorative msg
 bigFont =
-    Font.size (round (baseFontSize * 2))
+    Font.size 44
 
 
 cardToString : Card -> String
@@ -194,9 +199,9 @@ viewCard card model =
             ]
     in
     if model.expandedCard == Just card then
-        E.el (E.width (E.px 800) :: attrs)
+        E.el (E.width (E.px 900) :: attrs)
             (E.column [ E.spacing 20 ]
-                [ E.row [ Font.bold ] [ E.text (cardToString card) ]
+                [ E.row [ Font.semiBold, titleFont ] [ E.text (cardToString card) ]
                 , case card of
                     Ingredients ->
                         viewIngredients model
@@ -210,7 +215,7 @@ viewCard card model =
             )
 
     else
-        Input.button (Font.semiBold :: E.width (E.px 250) :: Font.center :: attrs)
+        Input.button (Font.semiBold :: titleFont :: E.width (E.px 400) :: Font.center :: attrs)
             { onPress = Just (ExpandCard (Just card))
             , label = E.text (cardToString card)
             }
@@ -347,7 +352,7 @@ viewMixing model =
                     , icon = Input.defaultCheckbox
                     , checked = Set.member step model.mixingSteps
                     , label =
-                        Input.labelRight [ E.paddingXY 5 0, E.width E.fill ]
+                        Input.labelRight [ E.width E.fill ]
                             (E.paragraph [] [ E.text step ])
                     }
             )
@@ -364,7 +369,7 @@ viewBaking model =
                     , icon = Input.defaultCheckbox
                     , checked = Set.member step model.bakingSteps
                     , label =
-                        Input.labelRight [ E.paddingXY 5 0, E.width E.fill ]
+                        Input.labelRight [ E.width E.fill ]
                             (E.paragraph [] [ E.text step ])
                     }
             )
