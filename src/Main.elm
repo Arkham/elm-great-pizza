@@ -330,7 +330,7 @@ mixingInstructions =
 
 bakingInstructions : List String
 bakingInstructions =
-    [ "If you did put the dough in the fridge, take it out 2 hours beforehand."
+    [ "If you did put the dough in the fridge, take it out 2 hours beforehand and put it in the oven with the light on."
     , "Put a baking stone or a metal tray in your oven and preheat it to 250° C."
     , "Cut the dough into smaller balls, fold them until they become elastic."
     , "Cover the balls with plastic wrap and let them rest for 30 minutes."
