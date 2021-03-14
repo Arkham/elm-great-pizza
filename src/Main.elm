@@ -21,7 +21,7 @@ type Card
 type alias Model =
     { expandedCard : Maybe Card
     , doughIngredients : Set String
-    , sauceIngredients : Set String
+    , toppingIngredients : Set String
     , mixingSteps : Set String
     , bakingSteps : Set String
     }
@@ -36,7 +36,7 @@ initialModel : Model
 initialModel =
     { expandedCard = Nothing
     , doughIngredients = Set.empty
-    , sauceIngredients = Set.empty
+    , toppingIngredients = Set.empty
     , mixingSteps = Set.empty
     , bakingSteps = Set.empty
     }
@@ -263,14 +263,15 @@ doughIngredients =
     ]
 
 
-sauceIngredients : List Ingredient
-sauceIngredients =
+toppingIngredients : List Ingredient
+toppingIngredients =
     [ ( Gram 500, "Tomato passata (Cirio / Mutti)" )
     , ( Tbsp 1, "Oregano" )
-    , ( Gram 400, "Mozzarella" )
     , ( Tsp 1, "Fine salt" )
     , ( ToTaste, "Extra virgin olive oil" )
+    , ( Gram 400, "Mozzarella" )
     , ( ToTaste, "Basil" )
+    , ( ToTaste, "Anything" )
     ]
 
 
@@ -290,18 +291,18 @@ viewIngredients model =
                 )
                 doughIngredients
             )
-        , E.el [ Font.italic ] (E.text "Sauce")
+        , E.el [ Font.italic ] (E.text "Topping")
         , E.column [ E.spacing 15 ]
             (List.map
                 (\(( unit, name ) as ingredient) ->
                     Input.checkbox []
-                        { onChange = ToggleSauceIngredient name
+                        { onChange = ToggleToppingIngredient name
                         , icon = Input.defaultCheckbox
-                        , checked = Set.member name model.sauceIngredients
+                        , checked = Set.member name model.toppingIngredients
                         , label = Input.labelRight [] (ingredientLabel ingredient)
                         }
                 )
-                sauceIngredients
+                toppingIngredients
             )
         ]
 
@@ -324,7 +325,7 @@ mixingInstructions =
     , "Add extra virgin olive oil and keep kneading until all oil is absorbed."
     , "The surface of your dough should be smooth and elastic. If it's not, keep kneading!"
     , "Now do a fold. Stretch the dough in one direction and close it on itself. Then, rotate by 90 degrees and repeat the fold. Repeat this process 3 more times."
-    , "You're all done now! Let the dough rest for 4-6 hours at room temperature or for 24 hours in the fridge."
+    , "You're all done now! Let the dough rest for 4-6 hours at room temperature or 24 hours in the fridge."
     ]
 
 
@@ -332,8 +333,7 @@ bakingInstructions : List String
 bakingInstructions =
     [ "If you did put the dough in the fridge, take it out 2 hours beforehand and put it in the oven with the light on."
     , "Put a baking stone or a metal tray in your oven and preheat it to 250° C."
-    , "Cut the dough into smaller balls, fold them until they become elastic."
-    , "Cover the balls with plastic wrap and let them rest for 30 minutes."
+    , "Cut the dough into smaller balls, fold them until they become elastic. Cover the balls with plastic wrap and let them rest for 30 minutes."
     , "Prepare the sauce by mixing tomato passata, salt, olive oil, and oregano."
     , "Break down the mozzarella into small bits and let them dry in a strainer."
     , "When the oven is hot, dust your workspace with some flour and start stretching the dough. Then lay it on some baking paper."
@@ -384,7 +384,7 @@ type Msg
     = NoOp
     | ExpandCard (Maybe Card)
     | ToggleDoughIngredient String Bool
-    | ToggleSauceIngredient String Bool
+    | ToggleToppingIngredient String Bool
     | ToggleMixingStep String Bool
     | ToggleBakingStep String Bool
 
@@ -408,10 +408,10 @@ update msg model =
             , Cmd.none
             )
 
-        ToggleSauceIngredient name value ->
+        ToggleToppingIngredient name value ->
             ( { model
-                | sauceIngredients =
-                    toggleSet name value model.sauceIngredients
+                | toppingIngredients =
+                    toggleSet name value model.toppingIngredients
               }
             , Cmd.none
             )
