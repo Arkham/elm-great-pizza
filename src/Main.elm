@@ -210,7 +210,7 @@ viewCard card model =
             )
 
     else
-        Input.button (E.width (E.px 250) :: Font.center :: attrs)
+        Input.button (Font.semiBold :: E.width (E.px 250) :: Font.center :: attrs)
             { onPress = Just (ExpandCard (Just card))
             , label = E.text (cardToString card)
             }
@@ -313,7 +313,7 @@ ingredientLabel ( unit, name ) =
 mixingInstructions : List String
 mixingInstructions =
     [ "Pour lukewarm water into a cup, add yeast and let dissolve."
-    , "Combine the two flours in a bowl, then mix in the water and yeast."
+    , "Combine the two flours in a bowl, then mix in water and yeast."
     , "(Optional) Let the mix rest for half an hour."
     , "Add salt and knead until the dough stops sticking to your hands."
     , "Add extra virgin olive oil and keep kneading until all oil is absorbed."
@@ -326,12 +326,12 @@ mixingInstructions =
 bakingInstructions : List String
 bakingInstructions =
     [ "If you did put the dough in the fridge, take it out 2 hours beforehand."
+    , "Put a baking stone or a metal tray in your oven and preheat it to 250° C."
     , "Cut the dough into smaller balls, fold them until they become elastic."
-    , "Cover the balls with plastic wrap and let rest for 30 minutes."
-    , "In the meanwhile preheat your oven to 250° C in static mode (no fan)."
+    , "Cover the balls with plastic wrap and let them rest for 30 minutes."
     , "Prepare the sauce by mixing tomato passata, salt, olive oil, and oregano."
     , "Break down the mozzarella into small bits and let them dry in a strainer."
-    , "When the oven is hot, dust your workspace with some flour and start stretching the dough."
+    , "When the oven is hot, dust your workspace with some flour and start stretching the dough. Then lay it on some baking paper."
     , "Now put some tomato sauce on the pizza and bake for 6-7 minutes."
     , "Take the pizza out of the oven, add mozzarella and toppings, and bake for another 6-7 minutes. Time to eat!"
     ]
